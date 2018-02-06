@@ -16,9 +16,50 @@
 
 DEVICE_PATH := device/motorola/osprey
 
-include device/motorola/msm8916-common/BoardConfigCommon.mk
+TARGET_RECOVERY_DEVICE_DIRS := \
+    $(DEVICE_PATH)
 
-TARGET_KERNEL_CONFIG := osprey-mini_defconfig
+TARGET_ARCH := arm
+TARGET_CPU_ABI  := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
+TARGET_CPU_VARIANT := cortex-a7
+TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_CPU_SMP := true
+ARCH_ARM_HAVE_TLS_REGISTER := true
+
+TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
+
+TARGET_BOOTLOADER_BOARD_NAME := MSM8916
+TARGET_BOARD_PLATFORM := msm8916
+TARGET_NO_BOOTLOADER := true
+
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom ehci-hcd.park=3 vmalloc=400M androidboot.bootdevice=7824900.sdhci movablecore=160M androidboot.selinux=permissive
+BOARD_KERNEL_BASE := 0x80000000
+BOARD_RAMDISK_OFFSET := 0x01000000
+BOARD_KERNEL_PAGESIZE := 2048
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000
+BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/mkbootimg.mk
+TARGET_KERNEL_SOURCE := kernel/motorola/msm8916
+TARGET_KERNEL_CONFIG := msm8916_defconfig
+TARGET_KERNEL_CROSS_COMPILE_PREFIX := $(PWD)/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi-
+
+#BOARD_USES_QCOM_HARDWARE := true
+TARGET_RECOVERY_QCOM_RTC_FIX := true
+
+TARGET_USERIMAGES_USE_EXT4 := true
+TARGET_USERIMAGES_USE_F2FS := true
+
+TARGET_RECOVERY_FSTAB := device/motorola/osprey/twrp.fstab
+
+RECOVERY_SDCARD_ON_DATA := true
+
+# don't take forever to wipe
+BOARD_SUPPRESS_SECURE_ERASE := true
+
+# Crypto
+TARGET_HW_DISK_ENCRYPTION := true
+TW_INCLUDE_CRYPTO := true
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072
@@ -29,3 +70,8 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 4865261568 # 4751232 * 1024 mmcblk0p42
 
 # TWRP
 TW_THEME := portrait_hdpi
+TARGET_RECOVERY_PIXEL_FORMAT := RGB_565
+TW_NEW_ION_HEAP := true
+RECOVERY_GRAPHICS_USE_LINELENGTH := true
+TW_SCREEN_BLANK_ON_BOOT := true
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
