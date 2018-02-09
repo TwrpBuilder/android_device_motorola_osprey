@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2015 The Android Open-Source Project
+# Copyright (C) 2018 The TwrpBuilder Open-Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,10 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 
-# Inherit from our custom product configuration
-$(call inherit-product, vendor/omni/config/common.mk)
+PRODUCT_COPY_FILES += device/motorola/osprey/kernel:kernel
 
-$(call inherit-product, device/motorola/osprey/full_osprey.mk)
-
+PRODUCT_DEVICE := osprey
 PRODUCT_NAME := omni_osprey
+PRODUCT_BRAND := Motorola
+PRODUCT_MODEL := MotoG3
+PRODUCT_MANUFACTURER := Motorola
