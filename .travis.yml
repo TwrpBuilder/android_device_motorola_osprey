@@ -32,4 +32,4 @@ deploy:
   on:
     tags: false
     repo: TwrpBuilder/android_device_motorola_osprey
-    branch: master
+    branch: android-7.1.2
