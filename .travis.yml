@@ -33,3 +33,7 @@ deploy:
     tags: false
     repo: TwrpBuilder/android_device_motorola_osprey
     branch: android-7.1.2
+
+branches:
+  except:
+    - /^(?i:untagged)-.*$/
